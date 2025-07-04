@@ -14,6 +14,7 @@ def get_or_create_playlist(sp, playlist_name):
     for playlist in playlists:
         if playlist["name"].lower() == playlist_name.lower():
             print(f"Playlist '{playlist_name}' already exists. Returning URI.")
+            sp.playlist_replace_items(playlist["uri"], [])  # Wipe the playlist
             return playlist["uri"]
     
     # Create a new playlist if it doesn't exist
