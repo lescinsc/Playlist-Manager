@@ -1,9 +1,7 @@
-import auth
+
 import usermethods
 import random
 
-
-sp = auth.create_connection()
 
     
 def get_random_tracks_from_artist(sp, artist_name, num_songs):

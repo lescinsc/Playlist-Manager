@@ -4,6 +4,8 @@
     <title>Artist Input</title>
 </head>
 <body>
+    <h1> Logged in as {{ user }}</h1>
+    <a href="/logout">Log Out</a>
     <h1>Enter Artist Info</h1>
     <form method="POST">
         <label>Artist Name:</label>
@@ -14,6 +16,7 @@
 
         <button type="submit">Submit</button>
         <button type="submit" name="done" formnovalidate>Done</button>
+        
     </form>
 
     <h2>Entries so far:</h2>

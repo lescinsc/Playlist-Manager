@@ -1,7 +1,11 @@
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
+import os
 
 # Set up authentication
+
+
+
 
 
 def create_connection():

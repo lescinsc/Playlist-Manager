@@ -1,6 +1,6 @@
-import auth 
 
-sp = auth.create_connection()
+
+
 
 
 def add_track_to_playlist(sp, playlist_id, track_uri):

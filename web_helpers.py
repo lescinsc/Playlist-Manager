@@ -2,9 +2,8 @@ import artistmethods
 import auth
 import time
 
-sp = auth.create_connection()
 
-def process_entries(entries):
+def process_entries(sp, entries):
     final_playlist_names = []
     final_playlist_ids = []
     # Filter out the 'done' used to redirect the form 
