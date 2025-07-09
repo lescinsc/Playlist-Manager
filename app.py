@@ -1,3 +1,4 @@
+from dotenv import load_dotenv
 from flask import Flask, render_template, request, redirect, url_for, session
 from web_helpers import process_entries
 from usermethods import get_or_create_playlist, add_track_to_playlist
@@ -8,11 +9,11 @@ import os
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
-
+load_dotenv()
 
 sp_oauth = SpotifyOAuth(
-    client_id="df2c47e8ba6345c18b2139b578149d07",
-    client_secret="2eafc48ba07348b8b76d19689b2c815e",
+    client_id=os.getenv("SPOTIPY_CLIENT_ID"),
+    client_secret=os.getenv("SPOTIPY_CLIENT_SECRET"),
     redirect_uri="http://127.0.0.1:5000/callback",
     scope="playlist-modify-public",
     show_dialog=True ,
