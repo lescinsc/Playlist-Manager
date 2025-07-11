@@ -14,7 +14,7 @@ load_dotenv()
 sp_oauth = SpotifyOAuth(
     client_id=os.getenv("SPOTIPY_CLIENT_ID"),
     client_secret=os.getenv("SPOTIPY_CLIENT_SECRET"),
-    redirect_uri="http://127.0.0.1:5000/callback",
+    redirect_uri="https://playlist-manager-n6nm.onrender.com/callback",
     scope="playlist-modify-public",
     show_dialog=True ,
     cache_path=".cache"
