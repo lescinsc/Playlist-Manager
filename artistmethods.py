@@ -59,3 +59,17 @@ def get_random_tracks_from_artist(sp, artist_name, num_songs):
     return track_names, track_ids
 
 
+def artist_exists(artist_name, sp):
+    """
+    Checks if an artist exists on Spotify.
+
+    Parameters:
+    - artist_name (str): The name of the artist to search for.
+    - sp (spotipy.Spotify): An authenticated Spotipy client instance.
+
+    Returns:
+    - dict: Artist data if found, otherwise None.
+    """
+    results = sp.search(q=f'artist:{artist_name}', type='artist', limit=1)
+    artists = results.get('artists', {}).get('items', [])
+    return 1 if artists else 0

@@ -2,7 +2,7 @@ from dotenv import load_dotenv
 from flask import Flask, render_template, request, redirect, url_for, session
 from web_helpers import process_entries
 from usermethods import get_or_create_playlist, add_track_to_playlist
-import auth
+from artistmethods import artist_exists
 from spotipy.oauth2 import SpotifyOAuth
 from spotipy import Spotify
 import os
@@ -56,8 +56,12 @@ def home():
                 artist = request.form.get('artist_name')
                 num_songs = request.form.get('num_songs')
                 if artist and num_songs:
-                    session['entries'].append({'artist': artist, 'songs': num_songs})
-                    session.modified = True
+                    if artist_exists(artist, sp):
+                        session['entries'].append({'artist': artist, 'songs': num_songs})
+                        session.modified = True
+                    else:
+                        return render_template('inputs.html', entries=session['entries'], user=user_profile['display_name'], message=f"Artist '{artist}' not found on Spotify.")
+
     
         return render_template('inputs.html', entries=session['entries'], user=user_profile['display_name'])
     else:
