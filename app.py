@@ -14,7 +14,8 @@ load_dotenv()
 sp_oauth = SpotifyOAuth(
     client_id=os.getenv("SPOTIPY_CLIENT_ID"),
     client_secret=os.getenv("SPOTIPY_CLIENT_SECRET"),
-    redirect_uri="https://playlist-manager-n6nm.onrender.com/callback",
+    #redirect_uri="https://playlist-manager-n6nm.onrender.com/callback",
+    redirect_uri="http://127.0.0.1:5000/callback",
     scope="playlist-modify-public",
     show_dialog=True ,
     cache_path=".cache"
@@ -41,8 +42,6 @@ def home():
 
         if session.get('entries') is None:
             session['entries'] = []
-
-
         if request.method == 'POST':
             # Check if the 'done' button was pressed
             # Append a placeholder entry and redirect to the done page
@@ -52,7 +51,6 @@ def home():
                 return redirect(url_for('done'))
             # Otherwise, keep getting input from the user
             else:
-                print(session['entries'])
                 artist = request.form.get('artist_name')
                 num_songs = request.form.get('num_songs')
                 if artist and num_songs:
@@ -99,6 +97,16 @@ def create_playlist():
     session.pop('track_ids', None)
 
     return f"<h2>Playlist '{playlist_name}' created!</h2><p><a href='{uri}' target='_blank'>Open Playlist</a></p>"
+
+@app.route('/remove/<artist_name>', methods=['GET'])
+def remove_artist(artist_name):
+    artist_name = request.args.get('artist_name')
+    print(artist_name)
+    if 'entries' in session:
+        session['entries'] = [entry for entry in session['entries'] if entry.get('artist') != artist_name]
+        session.modified = True
+    return redirect(url_for('home'))
+
 
 @app.route('/logout')
 def logout():
