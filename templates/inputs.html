@@ -2,11 +2,10 @@
 <html>
 <head>
     <title>Artist Input</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main2.css') }}" />
 </head>
 <body>
     <h1> Logged in as {{ user }}</h1>
-
     <a href="/logout">Log Out</a>
     <h1>Enter Artist Info</h1>
     <form method="POST">
@@ -24,9 +23,10 @@
     <h2>Entries so far:</h2>
     <ul>
         {% for entry in entries %}
-            <li> 
+            <li>
+                {{ entry.artist }} — {{ entry.songs }} songs-- 
                 <a href="{{ url_for('remove_artist', artist_name=entry.artist)}}"> 
-                {{ entry.artist }} — {{ entry.songs }} songs -- Click to remove
+                 Click to remove
                 </a>
             </li>
         {% endfor %}
