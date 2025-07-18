@@ -36,9 +36,12 @@ def callback():
 @app.route('/', methods=['GET', 'POST'])
 def home():
     if 'token_info' in session:
-        sp = Spotify(auth=session['token_info']['access_token'])
-        user_profile = sp.current_user()
-        print(user_profile)
+        try:
+            sp = Spotify(auth=session['token_info']['access_token'])
+            user_profile = sp.current_user()
+        except Exception as e:
+            print(f"Error fetching user profile: {e}")
+            return redirect(url_for('login'))
 
         if session.get('entries') is None:
             session['entries'] = []
@@ -100,7 +103,6 @@ def create_playlist():
 
 @app.route('/remove/<artist_name>', methods=['GET'])
 def remove_artist(artist_name):
-    artist_name = request.args.get('artist_name')
     print(artist_name)
     if 'entries' in session:
         session['entries'] = [entry for entry in session['entries'] if entry.get('artist') != artist_name]
