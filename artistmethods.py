@@ -30,12 +30,12 @@ def get_random_tracks_from_artist(sp, artist_name, num_songs):
     # Extract tracks from each album
     for album in albums:
         tracks = sp.album_tracks(album['id'])['items']
-        album_tracks.extend([(track['name'], track['id']) for track in tracks])
+        album_tracks.extend([(track['name'], track['id'], artist_name) for track in tracks])
 
     # Get top tracks
     print(f"Fetching top tracks for artist '{artist_name}'")
     top_tracks = sp.artist_top_tracks(artist_id)["tracks"]
-    top_track_data = [(track['name'], track['id']) for track in top_tracks]
+    top_track_data = [(track['name'], track['id'], artist_name) for track in top_tracks]
 
     # Ensure there's enough data to pull from
     if not album_tracks and not top_track_data:
@@ -53,11 +53,8 @@ def get_random_tracks_from_artist(sp, artist_name, num_songs):
 
     # Combine and separate into names and IDs
     combined_tracks = selected_album_tracks + selected_top_tracks
-    track_names = [name for name, _id in combined_tracks]
-    track_ids = [_id for name, _id in combined_tracks]
 
-    return track_names, track_ids
-
+    return combined_tracks
 
 def artist_exists(artist_name, sp):
     """

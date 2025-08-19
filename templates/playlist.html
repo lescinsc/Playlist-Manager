@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Playlist Generated</title>
+     <link rel="stylesheet" href="{{ url_for('static', filename='css/main2.css') }}" />
+</head>
+<body>
+    <h1>Here is your playlist</h1>
+    <ul>
+        {% for entry in playlist %}
+            <li> {{ entry[0] }} - {{ entry[2] }}
+                <form method="POST" action ="{{ url_for('replace_song', track_name=entry[0], track_id=entry[1], artist_name=entry[2]) }}" > 
+                    <button type="submit">Replace Song</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+    <form method="POST" action="{{ url_for('create_playlist') }}">
+        <label for="playlist_name">Playlist Name:</label>
+        <input type="text" id="playlist_name" name="playlist_name" required>
+        <button type="submit">Create Playlist</button>
+    </form>
+</body>
+</html>
