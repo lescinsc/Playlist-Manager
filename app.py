@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
 from flask import Flask, render_template, request, redirect, url_for, session
 from web_helpers import check_profile ,process_entries, check_artist_added, remove_done
-from usermethods import get_user_playlists, get_user_playlist_names, create_playlist, add_track_to_playlist
+from usermethods import get_user_playlists, get_user_playlist_names, check_or_create_playlist, add_track_to_playlist
 from artistmethods import artist_exists, get_random_tracks_from_artist
 from spotipy.oauth2 import SpotifyOAuth
 from spotipy import Spotify
@@ -115,7 +115,7 @@ def create_playlist():
     playlist_name = request.form.get('playlist_name')
 
     # Create the playlist
-    playlist_uri = create_playlist(sp, playlist_name)
+    playlist_uri = check_or_create_playlist(sp, playlist_name)
     for song in session.get(session['playlist'], []):
         print(("Adding track:", song))
         add_track_to_playlist(sp, playlist_uri, song[2])
