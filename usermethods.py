@@ -15,7 +15,7 @@ def get_user_playlist_names(sp):
     # filter out only names
     return [playlist["name"] for playlist in playlists]
 
-def create_playlist(sp, playlist_name):
+def check_or_create_playlist(sp, playlist_name):
  
     playlists = get_user_playlists(sp)  # Get user's playlists
     
