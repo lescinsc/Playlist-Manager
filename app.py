@@ -60,7 +60,9 @@ def playlist_creator():
     sp = Spotify(auth=session['token_info']['access_token'])
     user_profile = sp.current_user()
         # Init entries list
+
     if session.get('user_input') is None:
+        print("Initializing user_input in session")
         session['user_input'] = []
         # Check if the 'done' button was pressed
         # Append a placeholder entry and redirect to the done page
@@ -69,20 +71,25 @@ def playlist_creator():
         session.modified = True
         return redirect(url_for('playlist'))
     # Otherwise, keep getting input from the user
-    else:
+    if request.method == 'POST':
         artist = request.form.get('artist_name')
         num_songs = request.form.get('num_songs')
+        print(artist, num_songs)
         if check_artist_added(artist, session['user_input']):
             # If artist already added, show an error message
             return render_template('inputs.html', entries=session['user_input'], user=user_profile['display_name'], message=f"Artist '{artist}' already added.")
         if artist and num_songs:
             if artist_exists(artist, sp):
+                print("Artist exists")
                 session['user_input'].append({'artist': artist, 'songs': num_songs})
+                print(session.get('user_input'))
                 session.modified = True
+                return render_template('inputs.html', entries=session['user_input'], user=user_profile['display_name'])
             else:
                 # If artist does not exist, show an error message
                 return render_template('inputs.html', entries=session['user_input'], user=user_profile['display_name'], message=f"Artist '{artist}' not found on Spotify.")
     return render_template('inputs.html', entries=session['user_input'], user=user_profile['display_name'])
+        
 
 
 

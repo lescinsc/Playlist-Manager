@@ -37,7 +37,7 @@ def check_profile(session):
     try:
         # Try to get the user profile with the token info 
         sp = Spotify(auth=session['token_info']['access_token'])
-        
+        sp.current_user()  # Attempt to fetch user profile
         return True
         # If it fails, redirect to login
     except Exception as e:

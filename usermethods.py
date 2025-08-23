@@ -27,7 +27,7 @@ def create_playlist(sp, playlist_name):
             return playlist["uri"]
     
     # Create a new playlist if it doesn't exist
-    new_playlist = sp.user_playlist_create(user=user_id, name=playlist_name, public=True)
+    new_playlist = sp.user_playlist_create(user=sp.current_user()['id'], name=playlist_name, public=True)
     print(f"Created new playlist '{playlist_name}'. Returning URI.")
     return new_playlist["uri"]
 
