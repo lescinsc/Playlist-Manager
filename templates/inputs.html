@@ -5,9 +5,13 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main2.css') }}" />
 </head>
 <body>
-    <h1> Logged in as {{ user }}</h1>
+    <h1>About Playlist Creation</h1>
+    <p>Playlist manager creates a playlist based on the artist and number of songs you provide.</p>
+    <p>It will take half of the songs from the artist's top tracks and half of the songs from their entire discography. </p>
+    <h2> Logged in as {{ user }} ---
     <a href="/logout">Log Out</a>
-    <h1>Enter Artist Info</h1>
+    </h2>
+    <h2>Enter Artist Info</h2>
     <form method="POST">
         {% if message %}
         <div style="color: red;">{{ message }}</div>
@@ -16,8 +20,7 @@
         <input type="text" name="artist_name" required><br><br>
         <p1>Number of Songs:<p1>
         <input type="number" name="num_songs" required><br><br>
-        <button type="submit">Submit</button>
-        <button type="submit" name="done" formnovalidate>Done</button>  
+        <button type="submit">Add Artist</button>  
     </form>
 
     <h2>Entries so far:</h2>
@@ -31,5 +34,7 @@
             </li>
         {% endfor %}
     </ul>
+    <button type="submit" name="done" formnovalidate>Create Playlist</button>
+    
 </body>
 </html>

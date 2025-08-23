@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Playlist View</title>
+     <link rel="stylesheet" href="{{ url_for('static', filename='css/main2.css') }}" />
+</head>
+<body>
+    <h1>Here are your playlists</h1>
+    <a href="{{ url_for('playlist_creator') }}"> Create new playlist</a>
+    <ul>
+        {% for playlist in playlists %}
+            <li> {{ playlist }} 
+            </li>
+        {% endfor %}
+    </ul>
+ </body>
+</html>

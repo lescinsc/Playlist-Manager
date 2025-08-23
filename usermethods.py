@@ -6,9 +6,18 @@
 def add_track_to_playlist(sp, playlist_id, track_uri):
     sp.playlist_add_items(playlist_id, [track_uri])
 
-def get_or_create_playlist(sp, playlist_name):
+def get_user_playlists(sp):
     user_id = sp.me()["id"]  # Get the user's Spotify ID
-    playlists = sp.user_playlists(user_id)["items"]  # Get user's playlists
+    return  sp.user_playlists(user_id)["items"] 
+
+def get_user_playlist_names(sp):
+    playlists = get_user_playlists(sp)
+    # filter out only names
+    return [playlist["name"] for playlist in playlists]
+
+def create_playlist(sp, playlist_name):
+ 
+    playlists = get_user_playlists(sp)  # Get user's playlists
     
     # Check if playlist already exists
     for playlist in playlists:

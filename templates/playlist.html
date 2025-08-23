@@ -8,10 +8,11 @@
     <h1>Here is your playlist</h1>
     <ul>
         {% for entry in playlist %}
-            <li> {{ entry[0] }} - {{ entry[2] }}
-                <form method="POST" action ="{{ url_for('replace_song', track_name=entry[0], track_id=entry[1], artist_name=entry[2]) }}" > 
-                    <button type="submit">Replace Song</button>
-                </form>
+            <li> {{ entry[0] }} - 
+                <i>{{ entry[2] }} </i> --
+                <a href="{{ url_for('replace_song', track_name=entry[0], track_id=entry[1], artist_name=entry[2]) }}" > 
+                    Replace Song
+                </a>
             </li>
         {% endfor %}
     </ul>
@@ -20,5 +21,10 @@
         <input type="text" id="playlist_name" name="playlist_name" required>
         <button type="submit">Create Playlist</button>
     </form>
+    
+    <b>
+    <a href="{{ url_for('redirect_from_playlist') }}">Back to add/remove artists - 
+    </a>
+    </b>
 </body>
 </html>
