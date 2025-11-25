@@ -19,12 +19,12 @@ sp_oauth = SpotifyOAuth(
     # Set in env file
     client_id=os.getenv("SPOTIPY_CLIENT_ID"),
     client_secret=os.getenv("SPOTIPY_CLIENT_SECRET"),
-    redirect_uri="https://playlist-manager-n6nm.onrender.com/callback",
-    #redirect_uri="http://127.0.0.1:5000/callback",
+    #redirect_uri="https://playlist-manager-n6nm.onrender.com/callback",
+    redirect_uri="http://127.0.0.1:5000/callback",
     requests_timeout=30,
     scope="playlist-modify-public",
     show_dialog=True ,
-    cache_path=".cache"
+    cache_path=None
 )
 
 @app.route('/')
@@ -45,6 +45,7 @@ def callback():
     code = request.args.get('code')
     token_info = sp_oauth.get_access_token(code)
     session['token_info'] = token_info
+    session.permanent = False
     return redirect(url_for('playlist_view'))
 
 @app.route('/playlist_view', methods=['GET'])
@@ -116,9 +117,10 @@ def create_playlist():
 
     # Create the playlist
     playlist_uri = check_or_create_playlist(sp, playlist_name)
-    for song in session.get(session['playlist'], []):
+    print(session)
+    for song in session.get('playlist', []):
         print(("Adding track:", song))
-        add_track_to_playlist(sp, playlist_uri, song[2])
+        add_track_to_playlist(sp, playlist_uri, song[1])
     # Clear session
     session.pop('playlist', None)
 

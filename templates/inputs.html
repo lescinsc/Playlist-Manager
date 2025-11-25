@@ -5,12 +5,18 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main2.css') }}" />
 </head>
 <body>
-    <h1>About Playlist Creation</h1>
-    <p>Playlist manager creates a playlist based on the artist and number of songs you provide.</p>
-    <p>It will take half of the songs from the artist's top tracks and half of the songs from their entire discography. </p>
     <h2> Logged in as {{ user }} ---
-    <a href="/logout">Log Out</a>
+    <a href="/logout">Log Out,</a>
+    <a href="{{ url_for('playlist_view') }}"> 
+        Back to Playlists
+    </a>
     </h2>
+    <h1>About Playlist Creatation</h1>
+    <p>This will allow you to create and add a new playlist to your spotify account </p>
+    <p> First we will get a list of songs from the artists you provide.</p>
+    <p>It will take half of the songs from the artist's top tracks and half of the songs from their entire discography. </p>
+    <p>Click Create Playist to create the list, you will be able to preview the playlist before adding it to your spotify account</p>
+    
     <h2>Enter Artist Info</h2>
     <form method="POST">
         {% if message %}
@@ -35,6 +41,8 @@
         {% endfor %}
     </ul>
     <button type="submit" name="done" formnovalidate>Create Playlist</button>
+    
+
     
 </body>
 </html>
