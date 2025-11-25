@@ -19,8 +19,8 @@ sp_oauth = SpotifyOAuth(
     # Set in env file
     client_id=os.getenv("SPOTIPY_CLIENT_ID"),
     client_secret=os.getenv("SPOTIPY_CLIENT_SECRET"),
-    #redirect_uri="https://playlist-manager-n6nm.onrender.com/callback",
-    redirect_uri="http://127.0.0.1:5000/callback",
+    redirect_uri="https://playlist-manager-n6nm.onrender.com/callback",
+    #redirect_uri="http://127.0.0.1:5000/callback",
     requests_timeout=30,
     scope="playlist-modify-public",
     show_dialog=True ,
